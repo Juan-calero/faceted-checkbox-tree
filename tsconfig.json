@@ -1,0 +1,30 @@
+{
+	"compilerOptions": {
+		"allowJs": false,
+		"allowSyntheticDefaultImports": true,
+		"declaration": true,
+		"declarationMap": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
+		"jsx": "react",
+		"lib": ["es6", "dom", "es2019.object"],
+		"module": "esnext",
+		"moduleResolution": "node",
+		"noEmit": true,
+		"noFallthroughCasesInSwitch": true,
+		"resolveJsonModule": true,
+		/* 	"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noUnusedLocals": false,
+		"noUnusedParameters": true,
+		"pretty": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"strictNullChecks": true, */
+		"target": "es2019",
+		"typeRoots": ["./node_modules/@types", "./typings/assets.d.ts"]
+	},
+	"include": ["src", "src/design-system/button/button.test.tsx"]
+}
