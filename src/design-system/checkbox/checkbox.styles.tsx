@@ -10,7 +10,7 @@ import {
 } from '../tokens';
 import { CheckboxType } from './checkbox';
 
-const RADIO_BUTTON_VARIANTS = {
+const CHECKBOX_VARIANTS = {
 	parent: css`
 		background: ${colorDarkBrown};
 		color: ${colorTextBege};
@@ -22,13 +22,23 @@ const RADIO_BUTTON_VARIANTS = {
 	`,
 };
 
+const ICON_BUTTON_VARIANTS = {
+	parent: css`
+		color: ${colorTextBege};
+		border: 1px solid ${colorTextBege};
+	`,
+	child: css`
+		color: ${colorDarkBrown};
+		border: 1px solid ${colorDarkBrown};
+	`,
+};
+
 const Wrapper = styled.div<{ $variant: CheckboxType['variant'] }>`
-	width: 100%;
 	display: flex;
 	padding: ${spaceS} ${spaceL};
 	font-size: ${spaceL};
 	cursor: pointer;
-	${({ $variant }) => $variant && RADIO_BUTTON_VARIANTS[$variant]}
+	${({ $variant }) => $variant && CHECKBOX_VARIANTS[$variant]}
 `;
 
 const Checkbox = styled.input<{ $depth?: number }>`
@@ -45,17 +55,15 @@ const Checkbox = styled.input<{ $depth?: number }>`
 		`}
 `;
 
-const IconButton = styled.button`
+const IconButton = styled.button<{ $variant: CheckboxType['variant'] }>`
 	margin-left: auto;
 	height: ${spaceXL};
 	width: ${spaceXL};
-	color: ${colorDarkBrown};
 	font-size: ${spaceL};
 	border-radius: 50%;
-	border: 1px solid ${colorDarkBrown};
 	background: transparent;
-	transform: rotate(90deg);
 	cursor: pointer;
+	${({ $variant }) => $variant && ICON_BUTTON_VARIANTS[$variant]}
 `;
 
 export const Styled = {

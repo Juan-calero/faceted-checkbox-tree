@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import {
 	CategoryDataContext,
@@ -20,13 +20,16 @@ export const CategoryDataContextWrapper: React.FC<
 		CategoryDataContextType['yourPicks']
 	>({});
 
-	useEffect(() => {
+	React.useEffect(() => {
 		let filteredData = {};
+		let filteredData2 = {};
 		categoryResponse.data.categories.forEach(({ parent, id, name }) => {
 			filteredData[parent] = [...(filteredData[parent] || []), { id, name }];
+			filteredData2[id] = { name, selected: false };
 		});
 
 		setCategoryData(filteredData);
+		setYourPicks(filteredData2);
 	}, []);
 
 	return (

@@ -1,38 +1,39 @@
 import React from 'react';
 import { Button } from '../design-system/button/button';
 import { CategoryDataContext } from '../contexts/category-data-context';
+import { Styled } from './user-selection.styles';
 
 export const UserSelection = () => {
-	const { categoryData, setCategoryData, yourPicks } =
+	const { categoryData, yourPicks, setYourPicks } =
 		React.useContext(CategoryDataContext);
 	const [isAllChecked, setIsAllChecked] = React.useState(false);
 
 	return (
-		<div>
+		<Styled.UserSelectionWrapper>
 			<Button
 				onClick={() => {
-					setCategoryData(
-						Object.fromEntries(
-							Object.entries(categoryData).map((entry) => [
-								entry[0],
-								(entry[1] as any)?.map((category) => ({
-									...category,
-									checked: !isAllChecked,
-								})),
-							])
+					setYourPicks(
+						Object.keys(yourPicks).reduce(
+							(accumulator, key) => ({
+								...accumulator,
+								[key]: { ...yourPicks[key], selected: !isAllChecked },
+							}),
+							{}
 						)
 					);
-
 					setIsAllChecked(!isAllChecked);
 				}}
 			>
 				{isAllChecked ? 'Unselect All' : 'Select All'}
 			</Button>
-
-			<p>Your Picks</p>
-			{Object.entries(yourPicks).map(([key, value]) => (
-				<div> {value}</div>
-			))}
-		</div>
+			<h3 style={{ margin: '0' }}>Your picks</h3>
+			<div style={{ overflow: 'scroll', height: '100%' }}>
+				{Object.entries(yourPicks).map(([key, { name, selected }]) =>
+					selected && !categoryData[key] ? (
+						<p style={{ margin: '0' }}>{name}</p>
+					) : null
+				)}
+			</div>
+		</Styled.UserSelectionWrapper>
 	);
 };

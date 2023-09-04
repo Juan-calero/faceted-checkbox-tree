@@ -20,6 +20,7 @@ export const Checkbox: React.FC<CheckboxType> = ({
 	onClick,
 	onChange,
 	variant = 'child',
+	expanded,
 	...props
 }) => (
 	<Styled.Wrapper $variant={variant}>
@@ -29,6 +30,10 @@ export const Checkbox: React.FC<CheckboxType> = ({
 			{...{ checked, onChange, ...props }}
 		/>
 		<label>{children}</label>
-		{hasChild && <Styled.IconButton {...{ onClick }}>{'<'}</Styled.IconButton>}
+		{hasChild && (
+			<Styled.IconButton $variant={variant} {...{ onClick }}>
+				{expanded ? '-' : '+'}
+			</Styled.IconButton>
+		)}
 	</Styled.Wrapper>
 );

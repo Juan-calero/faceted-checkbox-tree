@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { space6XL, spaceXXL } from '../design-system';
 
-const CheckboxTree = styled.div`
-	width: calc(${space6XL} * 3);
-	font-size: ${spaceXXL};
-	overflow: scroll;
+const UserSelectionWrapper = styled.div`
+	width: 300px;
+	margin-right: 10px;
+	overflow: hidden;
 `;
 
 export const Styled = {
-	CheckboxTree,
+	UserSelectionWrapper,
 };

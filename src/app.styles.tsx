@@ -6,15 +6,20 @@ const Page = styled.div`
 	flex-direction: column;
 	align-items: center;
 	background-color: ${colorLightBege};
-	min-height: 100vh;
+	height: 100vh;
+	max-height: calc(100vh - 40px);
 	width: 100vw;
 	font-size: ${spaceXXL};
 	color: white;
+	overflow: hidden;
+	padding: 20px;
 `;
 
 const Columns = styled.div`
+	width: 100%;
 	display: flex;
-	align-items: space-evenly;
+	justify-content: center;
+	overflow: hidden;
 `;
 
 export const Styled = {
