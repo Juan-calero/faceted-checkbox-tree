@@ -23,15 +23,16 @@ export const Checkbox: React.FC<CheckboxType> = ({
 	expanded,
 	...props
 }) => (
-	<Styled.Wrapper $variant={variant}>
+	<Styled.Wrapper $variant={variant} {...(hasChild && { onClick })}>
 		<Styled.Checkbox
 			type="checkbox"
 			$depth={depth}
 			{...{ checked, onChange, ...props }}
+			onClick={(e) => e.stopPropagation()}
 		/>
 		<label>{children}</label>
 		{hasChild && (
-			<Styled.IconButton $variant={variant} {...{ onClick }}>
+			<Styled.IconButton $variant={variant}>
 				{expanded ? '-' : '+'}
 			</Styled.IconButton>
 		)}

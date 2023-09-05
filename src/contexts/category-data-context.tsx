@@ -13,11 +13,7 @@ export type CategoryDataContextType = {
 		[id: string]: { name: string; selected: boolean };
 	};
 	toggleAllSelections: (selected: boolean) => void;
-	toggleSelection: (props: {
-		key: string;
-		name: string;
-		selected: boolean;
-	}) => void;
+	toggleSelection: (key: string, name: string, selected: boolean) => void;
 };
 
 export const CategoryDataContext = React.createContext<CategoryDataContextType>(

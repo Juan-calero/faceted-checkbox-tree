@@ -1,3 +1,3 @@
 export * from './category-group';
-export * from './faceted-checkbox-tree';
-export * from './user-selection';
+export * from './checkbox-tree';
+export * from './selected-categories';

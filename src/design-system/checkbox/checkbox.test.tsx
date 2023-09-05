@@ -20,10 +20,11 @@ const DEFAULT_PROPS: CheckboxType = {
 	checked: true,
 	children: 'mockChildren',
 	depth: 12,
+	expanded: false,
 	hasChild: true,
 	mockProp: 'mockProp',
-	onClick: jest.fn(),
 	onChange: jest.fn(),
+	onClick: jest.fn(),
 	variant: 'parent',
 };
 
@@ -40,9 +41,9 @@ describe('Checkbox', () => {
 
 	describe.each`
 		component              | mockComponent     | expectedProps
-		${'Styled.Wrapper'}    | ${mockWrapper}    | ${{ children: expect.anything(), $variant: 'parent' }}
-		${'Styled.Checkbox'}   | ${mockCheckbox}   | ${{ $depth: DEFAULT_PROPS['depth'], checked: DEFAULT_PROPS['checked'], mockProp: DEFAULT_PROPS['mockProp'], onChange: DEFAULT_PROPS['onChange'], type: 'checkbox' }}
-		${'Styled.IconButton'} | ${mockIconButton} | ${{ children: '<', onClick: DEFAULT_PROPS['onClick'] }}
+		${'Styled.Wrapper'}    | ${mockWrapper}    | ${{ children: expect.anything(), $variant: 'parent', onClick: DEFAULT_PROPS['onClick'] }}
+		${'Styled.Checkbox'}   | ${mockCheckbox}   | ${{ $depth: DEFAULT_PROPS['depth'], checked: DEFAULT_PROPS['checked'], mockProp: DEFAULT_PROPS['mockProp'], onChange: DEFAULT_PROPS['onChange'], onClick: expect.any(Function), type: 'checkbox' }}
+		${'Styled.IconButton'} | ${mockIconButton} | ${{ children: '+', $variant: 'parent' }}
 	`('$component', ({ mockComponent, expectedProps }) => {
 		it('renders with correct params', () => {
 			renderComponent();
@@ -55,6 +56,15 @@ describe('Checkbox', () => {
 		it('does not render when hasChild is false', () => {
 			renderComponent({ hasChild: false });
 			expect(mockIconButton).toBeCalledTimes(0);
+		});
+
+		it('renders with correct children when expanded is true', () => {
+			renderComponent({ expanded: true });
+			expect(mockIconButton).toBeCalledTimes(1);
+			expect(mockIconButton).toBeCalledWith(
+				expect.objectContaining({ children: '-' }),
+				{}
+			);
 		});
 	});
 });

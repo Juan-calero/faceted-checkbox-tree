@@ -7,9 +7,9 @@ jest.mock('./button.styles', () => ({
 	Styled: { Button: mockButton },
 }));
 
-const mockClick = jest.fn();
 const DEFAULT_PROPS = {
-	onClick: mockClick,
+	active: false,
+	onClick: jest.fn(),
 	children: 'mockChildren',
 };
 
@@ -28,7 +28,11 @@ describe('Button', () => {
 			renderComponent();
 			expect(mockButton).toBeCalledTimes(1);
 			expect(mockButton).toBeCalledWith(
-				{ children: 'mockChildren', onClick: expect.any(Function) },
+				{
+					$active: false,
+					children: 'mockChildren',
+					onClick: expect.any(Function),
+				},
 				{}
 			);
 		});
@@ -37,8 +41,8 @@ describe('Button', () => {
 			renderComponent();
 			mockButton.mock.calls[0][0].onClick();
 
-			expect(mockClick).toBeCalledTimes(1);
-			expect(mockClick).toBeCalledWith();
+			expect(DEFAULT_PROPS['onClick']).toBeCalledTimes(1);
+			expect(DEFAULT_PROPS['onClick']).toBeCalledWith();
 		});
 	});
 });

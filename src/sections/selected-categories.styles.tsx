@@ -5,12 +5,18 @@ import {
 	space6XL,
 	spaceS,
 	spaceM,
+	Button,
 } from '../design-system';
 
-const UserSelectionWrapper = styled.section`
+const SelectedCategoriesWrapper = styled.section`
+	display: flex;
+	flex-direction: column;
 	width: calc(${space6XL} * 3);
 	margin-right: ${spaceM};
-	overflow: hidden;
+`;
+
+const StyledButton = styled(Button)`
+	align-self: start;
 `;
 
 const Heading = styled.h3`
@@ -24,11 +30,11 @@ const Separator = styled.hr`
 
 const ChosenCategories = styled.div`
 	overflow: auto;
-	height: 100%;
 `;
 
 export const Styled = {
-	UserSelectionWrapper,
+	SelectedCategoriesWrapper,
+	Button: StyledButton,
 	Heading,
 	Separator,
 	ChosenCategories,

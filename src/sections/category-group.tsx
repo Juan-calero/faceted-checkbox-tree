@@ -27,7 +27,7 @@ export const CategoryGroup: React.FC<CategoryGroupType> = ({
 	const [checked, setChecked] = React.useState(false);
 
 	React.useEffect(() => {
-		toggleSelection({ key: categoryId, name, selected: parentChecked });
+		toggleSelection(categoryId, name, parentChecked);
 	}, [parentChecked]);
 
 	React.useEffect(() => {
@@ -40,7 +40,7 @@ export const CategoryGroup: React.FC<CategoryGroupType> = ({
 				variant={parent ? 'parent' : 'child'}
 				{...{ depth, checked }}
 				onChange={() => {
-					toggleSelection({ key: categoryId, name, selected: !checked });
+					toggleSelection(categoryId, name, !checked);
 					setChecked(!checked);
 				}}
 				onClick={() => setExpandCategoryGroup(!expandCategoryGroup)}

@@ -2,14 +2,26 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import type { RenderResult } from '@testing-library/react';
 
-const mockButton = jest.fn(({ children }) => children);
-jest.mock('./text-button.styles', () => ({
-	Styled: { Button: mockButton },
+let mockHover = true;
+const mockSetHover = jest.fn();
+jest.mock('react', () => ({
+	...jest.requireActual('react'),
+	useState: () => [mockHover, mockSetHover],
 }));
 
-const mockClick = jest.fn();
+const mockTextButtonWrapper = jest.fn(({ children }) => children);
+const mockContent = jest.fn(({ children }) => children);
+const mockCloseButton = jest.fn(() => <span>CloseButton</span>);
+jest.mock('./text-button.styles', () => ({
+	Styled: {
+		TextButtonWrapper: mockTextButtonWrapper,
+		Content: mockContent,
+		CloseButton: mockCloseButton,
+	},
+}));
+
 const DEFAULT_PROPS = {
-	onClick: mockClick,
+	onClick: jest.fn(),
 	children: 'mockChildren',
 };
 
@@ -23,22 +35,42 @@ describe('Button', () => {
 
 	afterEach(jest.clearAllMocks);
 
-	describe('Button', () => {
+	describe.each`
+		component              | mockComponent            | expectedProps
+		${'TextButtonWrapper'} | ${mockTextButtonWrapper} | ${{ children: expect.anything(), onMouseEnter: expect.any(Function), onMouseLeave: expect.any(Function) }}
+		${'Content'}           | ${mockContent}           | ${{ children: DEFAULT_PROPS['children'] }}
+		${'CloseButton'}       | ${mockCloseButton}       | ${{ children: 'X', onClick: DEFAULT_PROPS['onClick'] }}
+	`('$component', ({ mockComponent, expectedProps }) => {
 		it('renders with correct params', () => {
 			renderComponent();
-			expect(mockButton).toBeCalledTimes(1);
-			expect(mockButton).toBeCalledWith(
-				{ children: 'mockChildren', onClick: expect.any(Function) },
-				{}
-			);
+			expect(mockComponent).toBeCalledTimes(1);
+			expect(mockComponent).toBeCalledWith(expectedProps, {});
 		});
+	});
 
-		it('calls onClick function onClick', () => {
+	describe('TextButtonWrapper', () => {
+		it.each`
+			onEvent           | expectedProps
+			${'onMouseEnter'} | ${true}
+			${'onMouseLeave'} | ${false}
+		`(
+			'calls setHover with correct arguments $onEvent',
+			({ onEvent, expectedProps }) => {
+				renderComponent();
+				mockTextButtonWrapper.mock.calls[0][0][onEvent]();
+				expect(mockSetHover).toBeCalledTimes(1);
+				expect(mockSetHover).toBeCalledWith(expectedProps);
+			}
+		);
+	});
+
+	describe('CloseButton', () => {
+		afterEach(() => (mockHover = true));
+
+		it('does not render when hover is false', () => {
+			mockHover = false;
 			renderComponent();
-			mockButton.mock.calls[0][0].onClick();
-
-			expect(mockClick).toBeCalledTimes(1);
-			expect(mockClick).toBeCalledWith();
+			expect(mockCloseButton).toBeCalledTimes(0);
 		});
 	});
 });

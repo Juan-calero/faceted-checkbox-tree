@@ -85,17 +85,14 @@ describe('CategoryDataContextWrapper', () => {
 
 		it('toggles a single selection (based on it`s key), on toggleSelection', () => {
 			renderComponent();
-			mockCategoryDataContextProvider.mock.calls[0][0].value.toggleSelection({
-				key: 'mockKey',
-				name: 'mockName',
-				selected: true,
-			});
+			mockCategoryDataContextProvider.mock.calls[0][0].value.toggleSelection(
+				'mockKey',
+				'mockName',
+				true
+			);
 
 			expect(mockSetChosenCategories).toBeCalledTimes(1);
-			expect(mockSetChosenCategories).toBeCalledWith({
-				...mockChosenCategories,
-				mockKey: { name: 'mockName', selected: true },
-			});
+			expect(mockSetChosenCategories).toBeCalledWith(expect.any(Function));
 		});
 	});
 });

@@ -1,9 +1,9 @@
 import React from 'react';
 import { CategoryDataContext } from '../contexts/category-data-context';
-import { Styled } from './user-selection.styles';
-import { TextButton, Button } from '../design-system';
+import { Styled } from './selected-categories.styles';
+import { TextButton } from '../design-system';
 
-export const UserSelection: React.FC = () => {
+export const SelectedCategories: React.FC = () => {
 	const {
 		categoryData,
 		chosenCategories,
@@ -14,8 +14,8 @@ export const UserSelection: React.FC = () => {
 	const [isAllChecked, setIsAllChecked] = React.useState(false);
 
 	return (
-		<Styled.UserSelectionWrapper>
-			<Button
+		<Styled.SelectedCategoriesWrapper>
+			<Styled.Button
 				onClick={() => {
 					toggleAllSelections(!isAllChecked);
 					setIsAllChecked(!isAllChecked);
@@ -23,7 +23,7 @@ export const UserSelection: React.FC = () => {
 				active={isAllChecked}
 			>
 				{isAllChecked ? 'Unselect all' : 'Select all'}
-			</Button>
+			</Styled.Button>
 			<Styled.Heading>Your picks</Styled.Heading>
 			<Styled.Separator />
 			<Styled.ChosenCategories>
@@ -31,13 +31,13 @@ export const UserSelection: React.FC = () => {
 					selected && !categoryData[key] ? (
 						<TextButton
 							key={key}
-							onClick={() => toggleSelection({ key, name, selected: false })}
+							onClick={() => toggleSelection(key, name, false)}
 						>
 							{name}
 						</TextButton>
 					) : null
 				)}
 			</Styled.ChosenCategories>
-		</Styled.UserSelectionWrapper>
+		</Styled.SelectedCategoriesWrapper>
 	);
 };

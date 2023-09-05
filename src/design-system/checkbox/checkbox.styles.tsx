@@ -32,12 +32,16 @@ const ICON_BUTTON_VARIANTS = {
 	`,
 };
 
-const Wrapper = styled.div<{ $variant: CheckboxType['variant'] }>`
+const Wrapper = styled.div<{
+	onClick?: () => void;
+	$variant: CheckboxType['variant'];
+}>`
 	display: flex;
+	align-items: center;
 	padding: ${spaceS} ${spaceL};
 	font-size: ${spaceL};
-	cursor: pointer;
 	${({ $variant }) => $variant && CHECKBOX_VARIANTS[$variant]}
+	${({ onClick }) => onClick && 'cursor: pointer;'}
 `;
 
 const Checkbox = styled.input<{ $depth?: number }>`
@@ -62,6 +66,7 @@ const IconButton = styled.button<{ $variant: CheckboxType['variant'] }>`
 	border-radius: 50%;
 	background: transparent;
 	cursor: pointer;
+	user-select: none;
 	${({ $variant }) => $variant && ICON_BUTTON_VARIANTS[$variant]}
 `;
 

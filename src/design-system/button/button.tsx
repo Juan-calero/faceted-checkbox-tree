@@ -2,19 +2,19 @@ import React from 'react';
 import { Styled } from './button.styles';
 
 export type ButtonType = {
-	children: React.ReactNode;
-	onClick: () => void;
 	active?: boolean;
-	[prop: string]: unknown;
+	children: React.ReactNode;
+	className?: string;
+	onClick: () => void;
 };
 
 export const Button: React.FC<ButtonType> = ({
-	onClick,
-	children,
 	active = false,
-	...props
+	children,
+	className,
+	onClick,
 }) => (
-	<Styled.Button $active={active} {...{ onClick, ...props }}>
+	<Styled.Button $active={active} {...{ onClick, className }}>
 		{children}
 	</Styled.Button>
 );

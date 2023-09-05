@@ -15,11 +15,11 @@ jest.mock('./app.styles', () => ({
 	},
 }));
 
-const mockFacetedCheckboxTree = jest.fn(() => <span>FacetedCheckboxTree</span>);
-const mockUserSelection = jest.fn(() => <span>UserSelection</span>);
+const mockCheckboxTree = jest.fn(() => <span>CheckboxTree</span>);
+const mockSelectedCategories = jest.fn(() => <span>SelectedCategories</span>);
 jest.mock('./sections', () => ({
-	FacetedCheckboxTree: mockFacetedCheckboxTree,
-	UserSelection: mockUserSelection,
+	CheckboxTree: mockCheckboxTree,
+	SelectedCategories: mockSelectedCategories,
 }));
 
 describe('App', () => {
@@ -36,8 +36,8 @@ describe('App', () => {
 		component                       | mockComponent                     | expectedProps
 		${'CategoryDataContextWrapper'} | ${mockCategoryDataContextWrapper} | ${{ children: expect.anything() }}
 		${'Styled.Page'}                | ${mockPage}                       | ${{ children: expect.anything() }}
-		${'UserSelection'}              | ${mockUserSelection}              | ${{}}
-		${'FacetedCheckboxTree'}        | ${mockFacetedCheckboxTree}        | ${{}}
+		${'SelectedCategories'}         | ${mockSelectedCategories}         | ${{}}
+		${'CheckboxTree'}               | ${mockCheckboxTree}               | ${{}}
 	`('$component', ({ mockComponent, expectedProps }) => {
 		it('renders with correct params', () => {
 			renderComponent();

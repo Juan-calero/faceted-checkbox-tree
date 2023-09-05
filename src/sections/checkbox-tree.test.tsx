@@ -18,18 +18,18 @@ jest.mock('./category-group', () => ({
 }));
 
 const mockCheckboxTreeWrapper = jest.fn(({ children }) => children);
-jest.mock('./faceted-checkbox-tree.styles', () => ({
+jest.mock('./checkbox-tree.styles', () => ({
 	Styled: {
 		CheckboxTreeWrapper: mockCheckboxTreeWrapper,
 	},
 }));
 
-describe('FacetedCheckboxTree', () => {
+describe('CheckboxTree', () => {
 	let renderComponent: () => RenderResult;
 
 	beforeEach(async () => {
-		const { FacetedCheckboxTree } = await import('./faceted-checkbox-tree');
-		renderComponent = () => render(<FacetedCheckboxTree />);
+		const { CheckboxTree } = await import('./checkbox-tree');
+		renderComponent = () => render(<CheckboxTree />);
 	});
 
 	afterEach(jest.clearAllMocks);

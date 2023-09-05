@@ -19,8 +19,10 @@ export const CategoryDataContextWrapper: React.FC<
 	>({});
 
 	React.useEffect(() => {
-		let normalizedCategoryData = {};
-		let normalizedChosenCategories = {};
+		let normalizedCategoryData: CategoryDataContextType['categoryData'] = {};
+		let normalizedChosenCategories: CategoryDataContextType['chosenCategories'] =
+			{};
+
 		categoryResponse.data.categories.forEach(({ parent, id, name }) => {
 			normalizedCategoryData[parent] = [
 				...(normalizedCategoryData[parent] || []),
@@ -33,7 +35,7 @@ export const CategoryDataContextWrapper: React.FC<
 		setChosenCategories(normalizedChosenCategories);
 	}, []);
 
-	const toggleAllSelections = (selected) =>
+	const toggleAllSelections = (selected: boolean) =>
 		setChosenCategories(
 			Object.keys(chosenCategories).reduce(
 				(accumulator, key) => ({
@@ -44,7 +46,7 @@ export const CategoryDataContextWrapper: React.FC<
 			)
 		);
 
-	const toggleSelection = ({ key, name, selected }) =>
+	const toggleSelection = (key: string, name: string, selected: boolean) =>
 		setChosenCategories((prevProps) => ({
 			...prevProps,
 			[key]: { name, selected },

@@ -21,44 +21,44 @@ jest.mock('react', () => ({
 	useState: () => [mockIsAllChecked, mockSetIsAllChecked],
 }));
 
-const mockButton = jest.fn(({ children }) => children);
 const mockTextButton = jest.fn(({ children }) => children);
 jest.mock('../design-system', () => ({
-	Button: mockButton,
 	TextButton: mockTextButton,
 }));
 
-const mockUserSelectionWrapper = jest.fn(({ children }) => children);
+const mockSelectedCategoriesWrapper = jest.fn(({ children }) => children);
+const mockButton = jest.fn(({ children }) => children);
 const mockHeading = jest.fn(({ children }) => children);
 const mockSeparator = jest.fn(({ children }) => children);
 const mockChosenCategories = jest.fn(({ children }) => children);
-jest.mock('./user-selection.styles', () => ({
+jest.mock('./selected-categories.styles', () => ({
 	Styled: {
-		UserSelectionWrapper: mockUserSelectionWrapper,
+		SelectedCategoriesWrapper: mockSelectedCategoriesWrapper,
+		Button: mockButton,
 		Heading: mockHeading,
 		Separator: mockSeparator,
 		ChosenCategories: mockChosenCategories,
 	},
 }));
 
-describe('UserSelection', () => {
+describe('SelectedCategories', () => {
 	let renderComponent: () => RenderResult;
 
 	beforeEach(async () => {
-		const { UserSelection } = await import('./user-selection');
-		renderComponent = () => render(<UserSelection />);
+		const { SelectedCategories } = await import('./selected-categories');
+		renderComponent = () => render(<SelectedCategories />);
 	});
 
 	afterEach(jest.clearAllMocks);
 
 	describe.each`
-		component                        | mockComponent               | expectedProps
-		${'Styled.UserSelectionWrapper'} | ${mockUserSelectionWrapper} | ${{ children: expect.anything() }}
-		${'Button'}                      | ${mockButton}               | ${{ children: 'Select all', active: mockIsAllChecked, onClick: expect.any(Function) }}
-		${'Styled.Heading'}              | ${mockHeading}              | ${{ children: 'Your picks' }}
-		${'Styled.Separator'}            | ${mockSeparator}            | ${{}}
-		${'Styled.ChosenCategories'}     | ${mockChosenCategories}     | ${{ children: expect.anything() }}
-		${'TextButton'}                  | ${mockTextButton}           | ${{ children: DEFAULT_CONTEXT_PROPS['chosenCategories'][2].name, onClick: expect.any(Function) }}
+		component                             | mockComponent                    | expectedProps
+		${'Styled.SelectedCategoriesWrapper'} | ${mockSelectedCategoriesWrapper} | ${{ children: expect.anything() }}
+		${'Button'}                           | ${mockButton}                    | ${{ children: 'Select all', active: mockIsAllChecked, onClick: expect.any(Function) }}
+		${'Styled.Heading'}                   | ${mockHeading}                   | ${{ children: 'Your picks' }}
+		${'Styled.Separator'}                 | ${mockSeparator}                 | ${{}}
+		${'Styled.ChosenCategories'}          | ${mockChosenCategories}          | ${{ children: expect.anything() }}
+		${'TextButton'}                       | ${mockTextButton}                | ${{ children: DEFAULT_CONTEXT_PROPS['chosenCategories'][2].name, onClick: expect.any(Function) }}
 	`('$component', ({ mockComponent, expectedProps }) => {
 		it('renders with correct params', () => {
 			renderComponent();
@@ -116,11 +116,11 @@ describe('UserSelection', () => {
 			renderComponent();
 			mockTextButton.mock.calls[0][0].onClick();
 			expect(DEFAULT_CONTEXT_PROPS['toggleSelection']).toBeCalledTimes(1);
-			expect(DEFAULT_CONTEXT_PROPS['toggleSelection']).toBeCalledWith({
-				key: '2',
-				name: DEFAULT_CONTEXT_PROPS['chosenCategories'][2].name,
-				selected: false,
-			});
+			expect(DEFAULT_CONTEXT_PROPS['toggleSelection']).toBeCalledWith(
+				'2',
+				DEFAULT_CONTEXT_PROPS['chosenCategories'][2].name,
+				false
+			);
 		});
 	});
 });
