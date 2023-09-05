@@ -1,18 +1,48 @@
 ## Otrium Frontend Engineer Challenge: Faceted Checkbox Tree
 
-### Introduction:
+## Get started:
+
+Welcome to Juan Calero's Otrium challenge!
+
+In order to start the project, please run this on the command line:
+
+```
+yarn && yarn start
+```
+
+You can see the unit tests in action by running this command:
+
+```
+yarn jest
+```
+
+## Code Structure:
+
+A little sneak peak of what you'll find inside "src/":
+
+- "/api" - where the "response.json" file lives
+- "/contexts" - where the react contexts are kept, along with their easy-to-use wrappers
+- "/design-system" - our most bite-sized and reusable components are here (buttons, checkboxes, tokens, ...)
+- "/sections" - the big sections of our code, concerning layout and page business logic
+- "/types" - reusable Types that are used throughout the app
+
+## Features:
+
+##Challenge Requirements:
+
+#### Introduction:
 
 Welcome to the Otrium challenge!
 Facets are an essential part of filtering that make it easier for users to narrow down their choices quickly.
 In this exercise, you will create a faceted checkbox tree component using React.
 
-### Task:
+#### Task:
 
 Given a server response, your goal is to create a user-friendly UI that displays a tree of checkboxes with names for the categories, similar to the provided preview.png.
 
 ![preview](preview.png)
 
-### Instructions:
+#### Instructions:
 
 1. **Category Tree UI:** ✅
 
@@ -54,7 +84,7 @@ Given a server response, your goal is to create a user-friendly UI that displays
 6. **Display Selected Categories:** ✅
    Display a list of selected categories to provide user feedback.
 
-### Requirements and Bonuses:
+#### Requirements and Bonuses:
 
 1. **Code Structure and Documentation:** ✅
    - Organize your work with a clear code structure.
@@ -65,11 +95,11 @@ Given a server response, your goal is to create a user-friendly UI that displays
    - Bonus points for creating a clean, concise interface with reusable components. ✅
    - Bonus points for implementing testing for your solution. ✅
 
-### Support and Questions:
+#### Support and Questions:
 
 Please feel free to reach out if anything is unclear or if you have any questions while completing the challenge.
 
-##### Note:
+###### Note:
 
 You are encouraged to provide screenshots or additional supporting documentation to showcase your work.
 
