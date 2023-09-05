@@ -46,11 +46,22 @@ export const CategoryDataContextWrapper: React.FC<
 			)
 		);
 
-	const toggleSelection = (key: string, name: string, selected: boolean) =>
+	const toggleSelection = (key: string, name: string, selected: boolean) => {
+		const toggledCategories: CategoryDataContextType['chosenCategories'] = {};
+
+		const recursiveToggle = (id: string, name: string, selected: boolean) => {
+			toggledCategories[id] = { name, selected };
+			categoryData[id]?.forEach(({ categoryId, name }) =>
+				recursiveToggle(categoryId, name, selected)
+			);
+		};
+		recursiveToggle(key, name, selected);
+
 		setChosenCategories((prevProps) => ({
 			...prevProps,
-			[key]: { name, selected },
+			...toggledCategories,
 		}));
+	};
 
 	return (
 		<CategoryDataContext.Provider

@@ -5,7 +5,6 @@ import { Styled } from './category-group.styles';
 
 export type CategoryGroupType = {
 	show: boolean;
-	checked?: boolean;
 	categoryId: string;
 	depth: number;
 	parent?: boolean;
@@ -14,7 +13,6 @@ export type CategoryGroupType = {
 
 export const CategoryGroup: React.FC<CategoryGroupType> = ({
 	show,
-	checked: parentChecked = false,
 	categoryId,
 	depth,
 	parent = false,
@@ -25,10 +23,6 @@ export const CategoryGroup: React.FC<CategoryGroupType> = ({
 
 	const [expandCategoryGroup, setExpandCategoryGroup] = React.useState(false);
 	const [checked, setChecked] = React.useState(false);
-
-	React.useEffect(() => {
-		toggleSelection(categoryId, name, parentChecked);
-	}, [parentChecked]);
 
 	React.useEffect(() => {
 		setChecked(chosenCategories[categoryId].selected);
@@ -57,7 +51,6 @@ export const CategoryGroup: React.FC<CategoryGroupType> = ({
 					key={categoryId}
 					{...{
 						show: expandCategoryGroup,
-						checked,
 						categoryId,
 						depth: depth + 1,
 						name,
