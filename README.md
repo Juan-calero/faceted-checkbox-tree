@@ -34,7 +34,7 @@ https://github.com/Juan-calero/faceted-checkbox-tree/assets/81999819/78fc48a9-6c
 
 - Added a cross button on each chosen category to easily deselect options.
 
-##Challenge Requirements:
+## Challenge Requirements:
 
 
 #### Introduction:
