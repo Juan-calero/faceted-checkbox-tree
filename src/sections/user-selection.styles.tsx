@@ -1,9 +1,15 @@
 import styled from 'styled-components';
-import { colorWhite, space4XL, spaceS, spaceXXL } from '../design-system';
+import {
+	colorWhite,
+	space4XL,
+	space6XL,
+	spaceS,
+	spaceM,
+} from '../design-system';
 
 const UserSelectionWrapper = styled.section`
-	width: 300px;
-	margin-right: 10px;
+	width: calc(${space6XL} * 3);
+	margin-right: ${spaceM};
 	overflow: hidden;
 `;
 

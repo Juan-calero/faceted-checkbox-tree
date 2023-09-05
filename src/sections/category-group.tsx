@@ -1,6 +1,7 @@
 import React from 'react';
 import { Checkbox } from '../design-system';
 import { CategoryDataContext } from '../contexts/category-data-context';
+import { Styled } from './category-group.styles';
 
 export type CategoryGroupType = {
 	show: boolean;
@@ -19,33 +20,27 @@ export const CategoryGroup: React.FC<CategoryGroupType> = ({
 	parent = false,
 	name,
 }) => {
-	const { categoryData, setYourPicks, yourPicks } =
+	const { categoryData, toggleSelection, chosenCategories } =
 		React.useContext(CategoryDataContext);
 
 	const [expandCategoryGroup, setExpandCategoryGroup] = React.useState(false);
 	const [checked, setChecked] = React.useState(false);
 
-	const toggleChosenCategory = (selected) =>
-		setYourPicks((prevProps) => ({
-			...prevProps,
-			[categoryId]: { name, selected },
-		}));
-
 	React.useEffect(() => {
-		toggleChosenCategory(parentChecked);
+		toggleSelection({ key: categoryId, name, selected: parentChecked });
 	}, [parentChecked]);
 
 	React.useEffect(() => {
-		setChecked(yourPicks[categoryId].selected);
-	}, [yourPicks[categoryId].selected]);
+		setChecked(chosenCategories[categoryId].selected);
+	}, [chosenCategories[categoryId].selected]);
 
 	return (
-		<div style={{ display: show ? 'initial' : 'none' }}>
+		<Styled.CategoryGroupWrapper $show={show}>
 			<Checkbox
 				variant={parent ? 'parent' : 'child'}
 				{...{ depth, checked }}
 				onChange={() => {
-					toggleChosenCategory(!checked);
+					toggleSelection({ key: categoryId, name, selected: !checked });
 					setChecked(!checked);
 				}}
 				onClick={() => setExpandCategoryGroup(!expandCategoryGroup)}
@@ -65,6 +60,6 @@ export const CategoryGroup: React.FC<CategoryGroupType> = ({
 					}}
 				/>
 			))}
-		</div>
+		</Styled.CategoryGroupWrapper>
 	);
 };

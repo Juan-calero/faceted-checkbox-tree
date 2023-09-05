@@ -1,9 +1,7 @@
 import React from 'react';
 
-import {
-	CategoryDataContext,
-	CategoryDataContextType,
-} from './category-data-context';
+import { CategoryDataContext } from './category-data-context';
+import type { CategoryDataContextType } from './category-data-context';
 import categoryResponse from '../api/response.json';
 
 export type CategoryDataContextWrapperType = {
@@ -16,8 +14,8 @@ export const CategoryDataContextWrapper: React.FC<
 	const [categoryData, setCategoryData] = React.useState<
 		CategoryDataContextType['categoryData']
 	>({});
-	const [yourPicks, setYourPicks] = React.useState<
-		CategoryDataContextType['yourPicks']
+	const [chosenCategories, setChosenCategories] = React.useState<
+		CategoryDataContextType['chosenCategories']
 	>({});
 
 	React.useEffect(() => {
@@ -32,29 +30,31 @@ export const CategoryDataContextWrapper: React.FC<
 		});
 
 		setCategoryData(normalizedCategoryData);
-		setYourPicks(normalizedChosenCategories);
+		setChosenCategories(normalizedChosenCategories);
 	}, []);
 
-	const toggleAllSelections = (selected) => {
-		setYourPicks(
-			Object.keys(yourPicks).reduce(
+	const toggleAllSelections = (selected) =>
+		setChosenCategories(
+			Object.keys(chosenCategories).reduce(
 				(accumulator, key) => ({
 					...accumulator,
-					[key]: { ...yourPicks[key], selected },
+					[key]: { ...chosenCategories[key], selected },
 				}),
 				{}
 			)
 		);
-	};
+
+	const toggleSelection = ({ key, name, selected }) =>
+		setChosenCategories({ ...chosenCategories, [key]: { name, selected } });
 
 	return (
 		<CategoryDataContext.Provider
 			value={{
 				categoryData,
 				setCategoryData,
-				yourPicks,
-				setYourPicks,
+				chosenCategories,
 				toggleAllSelections,
+				toggleSelection,
 			}}
 		>
 			{children}

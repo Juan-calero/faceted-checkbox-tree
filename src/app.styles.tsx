@@ -1,18 +1,17 @@
 import styled from 'styled-components';
-import { colorLightBege, colorWhite, spaceXXL } from './design-system';
+import { colorWhite, spaceL, spaceXXL } from './design-system';
 
 const Page = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: ${colorLightBege};
 	height: 100vh;
-	max-height: calc(100vh - 40px);
-	width: 100vw;
+	max-height: calc(100vh - ${spaceXXL});
+	width: calc(100vw - ${spaceXXL});
 	font-size: ${spaceXXL};
 	color: ${colorWhite};
 	overflow: hidden;
-	padding: 20px;
+	padding: ${spaceL};
 `;
 
 const Columns = styled.div`

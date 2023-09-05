@@ -9,21 +9,23 @@ export type CategoryDataContextType = {
 		React.SetStateAction<CategoryDataContextType['categoryData']>
 	>;
 
-	yourPicks: {
+	chosenCategories: {
 		[id: string]: { name: string; selected: boolean };
 	};
-	setYourPicks: React.Dispatch<
-		React.SetStateAction<CategoryDataContextType['yourPicks']>
-	>;
 	toggleAllSelections: (selected: boolean) => void;
+	toggleSelection: (props: {
+		key: string;
+		name: string;
+		selected: boolean;
+	}) => void;
 };
 
 export const CategoryDataContext = React.createContext<CategoryDataContextType>(
 	{
 		categoryData: {},
 		setCategoryData: () => {},
-		yourPicks: {},
-		setYourPicks: () => {},
+		chosenCategories: {},
 		toggleAllSelections: () => {},
+		toggleSelection: () => {},
 	}
 );

@@ -18,7 +18,6 @@ const CHECKBOX_VARIANTS = {
 	child: css`
 		background: ${colorTextBege};
 		color: ${colorDarkBrown};
-		border-left: 3px solid ${colorDarkBrown};
 	`,
 };
 

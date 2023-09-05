@@ -5,8 +5,12 @@ import { Styled } from './user-selection.styles';
 import { TextButton } from '../design-system/text-button';
 
 export const UserSelection: React.FC = () => {
-	const { categoryData, yourPicks, setYourPicks, toggleAllSelections } =
-		React.useContext(CategoryDataContext);
+	const {
+		categoryData,
+		chosenCategories,
+		toggleSelection,
+		toggleAllSelections,
+	} = React.useContext(CategoryDataContext);
 	const [isAllChecked, setIsAllChecked] = React.useState(false);
 
 	return (
@@ -23,15 +27,10 @@ export const UserSelection: React.FC = () => {
 			<Styled.Heading>Your picks</Styled.Heading>
 			<Styled.Separator />
 			<Styled.ChosenCategories>
-				{Object.entries(yourPicks).map(([key, { name, selected }]) =>
+				{Object.entries(chosenCategories).map(([key, { name, selected }]) =>
 					selected && !categoryData[key] ? (
 						<TextButton
-							onClick={() =>
-								setYourPicks((prevProps) => ({
-									...prevProps,
-									[key]: { name, selected: false },
-								}))
-							}
+							onClick={() => toggleSelection({ key, name, selected: false })}
 						>
 							{name}
 						</TextButton>
