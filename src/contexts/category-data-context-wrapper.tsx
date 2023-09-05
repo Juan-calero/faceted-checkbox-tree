@@ -45,7 +45,10 @@ export const CategoryDataContextWrapper: React.FC<
 		);
 
 	const toggleSelection = ({ key, name, selected }) =>
-		setChosenCategories({ ...chosenCategories, [key]: { name, selected } });
+		setChosenCategories((prevProps) => ({
+			...prevProps,
+			[key]: { name, selected },
+		}));
 
 	return (
 		<CategoryDataContext.Provider

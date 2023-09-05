@@ -4,6 +4,13 @@ import type { RenderResult } from '@testing-library/react';
 import { CategoryDataContextWrapperType } from './category-data-context-wrapper';
 
 const mockSetCategoryData = jest.fn();
+const mockChosenCategories = {
+	mockChosenCategoryKey: { name: 'mockChosenCategoryName', selected: false },
+	mockAnotherChosenCategoryKey: {
+		name: 'mockAnotherChosenCategoryName',
+		selected: false,
+	},
+};
 const mockSetChosenCategories = jest.fn();
 jest.mock('react', () => ({
 	...jest.requireActual('react'),
@@ -31,7 +38,7 @@ describe('CategoryDataContextWrapper', () => {
 		);
 		(useStateMock as jest.Mock)
 			.mockReturnValueOnce(['mockCategoryData', mockSetCategoryData])
-			.mockReturnValueOnce(['mockChosenCategories', mockSetChosenCategories]);
+			.mockReturnValueOnce([mockChosenCategories, mockSetChosenCategories]);
 		renderComponent = (props) =>
 			render(<CategoryDataContextWrapper {...DEFAULT_PROPS} {...props} />);
 	});
@@ -47,7 +54,7 @@ describe('CategoryDataContextWrapper', () => {
 					children: DEFAULT_PROPS['children'],
 					value: {
 						categoryData: 'mockCategoryData',
-						chosenCategories: 'mockChosenCategories',
+						chosenCategories: mockChosenCategories,
 						setCategoryData: expect.any(Function),
 						toggleAllSelections: expect.any(Function),
 						toggleSelection: expect.any(Function),
@@ -57,29 +64,26 @@ describe('CategoryDataContextWrapper', () => {
 			);
 		});
 
-		it('calls setChosenCategories with correct params on toggleAllSelections', () => {
+		it('toggles all selections (based on chosenCategories` keys), on toggleAllSelections', () => {
 			renderComponent();
 			mockCategoryDataContextProvider.mock.calls[0][0].value.toggleAllSelections(
 				true
 			);
 
 			expect(mockSetChosenCategories).toBeCalledTimes(1);
-			expect(mockSetChosenCategories).toBeCalledWith(
-				{
-					children: DEFAULT_PROPS['children'],
-					value: {
-						categoryData: 'mockCategoryData',
-						chosenCategories: 'mockChosenCategories',
-						setCategoryData: expect.any(Function),
-						toggleAllSelections: expect.any(Function),
-						toggleSelection: expect.any(Function),
-					},
+			expect(mockSetChosenCategories).toBeCalledWith({
+				mockChosenCategoryKey: {
+					name: 'mockChosenCategoryName',
+					selected: true,
 				},
-				{}
-			);
+				mockAnotherChosenCategoryKey: {
+					name: 'mockAnotherChosenCategoryName',
+					selected: true,
+				},
+			});
 		});
 
-		it('calls setChosenCategories with correct params on toggleSelection', () => {
+		it('toggles a single selection (based on it`s key), on toggleSelection', () => {
 			renderComponent();
 			mockCategoryDataContextProvider.mock.calls[0][0].value.toggleSelection({
 				key: 'mockKey',
@@ -88,19 +92,10 @@ describe('CategoryDataContextWrapper', () => {
 			});
 
 			expect(mockSetChosenCategories).toBeCalledTimes(1);
-			expect(mockSetChosenCategories).toBeCalledWith(
-				{
-					children: DEFAULT_PROPS['children'],
-					value: {
-						categoryData: 'mockCategoryData',
-						chosenCategories: 'mockChosenCategories',
-						setCategoryData: expect.any(Function),
-						toggleAllSelections: expect.any(Function),
-						toggleSelection: expect.any(Function),
-					},
-				},
-				{}
-			);
+			expect(mockSetChosenCategories).toBeCalledWith({
+				...mockChosenCategories,
+				mockKey: { name: 'mockName', selected: true },
+			});
 		});
 	});
 });

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button } from '../design-system/button/button';
 import { CategoryDataContext } from '../contexts/category-data-context';
 import { Styled } from './user-selection.styles';
-import { TextButton } from '../design-system/text-button';
+import { TextButton, Button } from '../design-system';
 
 export const UserSelection: React.FC = () => {
 	const {
@@ -11,6 +10,7 @@ export const UserSelection: React.FC = () => {
 		toggleSelection,
 		toggleAllSelections,
 	} = React.useContext(CategoryDataContext);
+
 	const [isAllChecked, setIsAllChecked] = React.useState(false);
 
 	return (
@@ -22,7 +22,7 @@ export const UserSelection: React.FC = () => {
 				}}
 				active={isAllChecked}
 			>
-				{isAllChecked ? 'Unselect All' : 'Select All'}
+				{isAllChecked ? 'Unselect all' : 'Select all'}
 			</Button>
 			<Styled.Heading>Your picks</Styled.Heading>
 			<Styled.Separator />
@@ -30,6 +30,7 @@ export const UserSelection: React.FC = () => {
 				{Object.entries(chosenCategories).map(([key, { name, selected }]) =>
 					selected && !categoryData[key] ? (
 						<TextButton
+							key={key}
 							onClick={() => toggleSelection({ key, name, selected: false })}
 						>
 							{name}

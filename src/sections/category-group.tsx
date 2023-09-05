@@ -51,6 +51,7 @@ export const CategoryGroup: React.FC<CategoryGroupType> = ({
 			</Checkbox>
 			{categoryData[categoryId]?.map(({ categoryId, name }) => (
 				<CategoryGroup
+					key={categoryId}
 					{...{
 						show: expandCategoryGroup,
 						checked,
