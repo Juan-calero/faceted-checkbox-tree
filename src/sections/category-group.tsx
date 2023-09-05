@@ -35,7 +35,10 @@ export const CategoryGroup: React.FC<CategoryGroupType> = ({
 	}, [chosenCategories[categoryId].selected]);
 
 	return (
-		<Styled.CategoryGroupWrapper $show={show}>
+		<Styled.CategoryGroupWrapper
+			$show={show}
+			data-testid={`category-group${show ? '-show' : ''}`}
+		>
 			<Checkbox
 				variant={parent ? 'parent' : 'child'}
 				{...{ depth, checked }}

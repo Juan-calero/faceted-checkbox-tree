@@ -41,7 +41,7 @@ describe('Checkbox', () => {
 
 	describe.each`
 		component              | mockComponent     | expectedProps
-		${'Styled.Wrapper'}    | ${mockWrapper}    | ${{ children: expect.anything(), $variant: 'parent', onClick: DEFAULT_PROPS['onClick'] }}
+		${'Styled.Wrapper'}    | ${mockWrapper}    | ${{ children: expect.anything(), $variant: 'parent', onClick: DEFAULT_PROPS['onClick'], 'data-testid': `checkbox-${DEFAULT_PROPS['children']}-${DEFAULT_PROPS['depth']}` }}
 		${'Styled.Checkbox'}   | ${mockCheckbox}   | ${{ $depth: DEFAULT_PROPS['depth'], checked: DEFAULT_PROPS['checked'], mockProp: DEFAULT_PROPS['mockProp'], onChange: DEFAULT_PROPS['onChange'], onClick: expect.any(Function), type: 'checkbox' }}
 		${'Styled.IconButton'} | ${mockIconButton} | ${{ children: '+', $variant: 'parent' }}
 	`('$component', ({ mockComponent, expectedProps }) => {

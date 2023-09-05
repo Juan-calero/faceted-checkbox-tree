@@ -54,11 +54,11 @@ describe('SelectedCategories', () => {
 	describe.each`
 		component                             | mockComponent                    | expectedProps
 		${'Styled.SelectedCategoriesWrapper'} | ${mockSelectedCategoriesWrapper} | ${{ children: expect.anything() }}
-		${'Button'}                           | ${mockButton}                    | ${{ children: 'Select all', active: mockIsAllChecked, onClick: expect.any(Function) }}
+		${'Button'}                           | ${mockButton}                    | ${{ children: 'Select all', active: mockIsAllChecked, onClick: expect.any(Function), 'data-testid': 'button-select-all' }}
 		${'Styled.Heading'}                   | ${mockHeading}                   | ${{ children: 'Your picks' }}
 		${'Styled.Separator'}                 | ${mockSeparator}                 | ${{}}
 		${'Styled.ChosenCategories'}          | ${mockChosenCategories}          | ${{ children: expect.anything() }}
-		${'TextButton'}                       | ${mockTextButton}                | ${{ children: DEFAULT_CONTEXT_PROPS['chosenCategories'][2].name, onClick: expect.any(Function) }}
+		${'TextButton'}                       | ${mockTextButton}                | ${{ children: DEFAULT_CONTEXT_PROPS['chosenCategories'][2].name, onClick: expect.any(Function), 'data-testid': `chosen-category-${DEFAULT_CONTEXT_PROPS['chosenCategories'][2].name}` }}
 	`('$component', ({ mockComponent, expectedProps }) => {
 		it('renders with correct params', () => {
 			renderComponent();

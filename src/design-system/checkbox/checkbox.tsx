@@ -23,7 +23,11 @@ export const Checkbox: React.FC<CheckboxType> = ({
 	expanded,
 	...props
 }) => (
-	<Styled.Wrapper $variant={variant} {...(hasChild && { onClick })}>
+	<Styled.Wrapper
+		$variant={variant}
+		{...(hasChild && { onClick })}
+		data-testid={`checkbox-${children}-${depth}`}
+	>
 		<Styled.Checkbox
 			type="checkbox"
 			$depth={depth}

@@ -21,6 +21,7 @@ export const SelectedCategories: React.FC = () => {
 					setIsAllChecked(!isAllChecked);
 				}}
 				active={isAllChecked}
+				data-testid="button-select-all"
 			>
 				{isAllChecked ? 'Unselect all' : 'Select all'}
 			</Styled.Button>
@@ -30,6 +31,7 @@ export const SelectedCategories: React.FC = () => {
 				{Object.entries(chosenCategories).map(([key, { name, selected }]) =>
 					selected && !categoryData[key] ? (
 						<TextButton
+							data-testid={`chosen-category-${name}`}
 							key={key}
 							onClick={() => toggleSelection(key, name, false)}
 						>

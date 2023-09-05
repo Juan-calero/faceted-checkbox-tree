@@ -6,15 +6,16 @@ export type ButtonType = {
 	children: React.ReactNode;
 	className?: string;
 	onClick: () => void;
+	[props: string]: unknown;
 };
 
 export const Button: React.FC<ButtonType> = ({
 	active = false,
 	children,
-	className,
 	onClick,
+	...props
 }) => (
-	<Styled.Button $active={active} {...{ onClick, className }}>
+	<Styled.Button $active={active} {...{ onClick, ...props }}>
 		{children}
 	</Styled.Button>
 );

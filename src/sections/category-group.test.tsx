@@ -63,7 +63,7 @@ describe('CategoryGroup', () => {
 
 	describe.each`
 		component                 | mockComponent               | expectedProps
-		${'CategoryGroupWrapper'} | ${mockCategoryGroupWrapper} | ${{ children: expect.anything(), $show: DEFAULT_PROPS['show'] }}
+		${'CategoryGroupWrapper'} | ${mockCategoryGroupWrapper} | ${{ children: expect.anything(), $show: DEFAULT_PROPS['show'], 'data-testid': 'category-group' }}
 		${'Checkbox'}             | ${mockCheckbox}             | ${{ checked: DEFAULT_PROPS['checked'], children: DEFAULT_PROPS['name'], depth: DEFAULT_PROPS['depth'], expanded: false, hasChild: false, onChange: expect.any(Function), onClick: expect.any(Function), variant: 'child' }}
 	`('$component', ({ mockComponent, expectedProps }) => {
 		it('renders with correct params', () => {
