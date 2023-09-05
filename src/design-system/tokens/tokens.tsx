@@ -16,3 +16,4 @@ export const colorDarkBrown = '#4B473F';
 export const colorLightBege = '#C9C5AC';
 export const colorTextBege = '#E7E2C8';
 export const colorDarkBege = '#B1AA97';
+export const colorWhite = '#FFFFFF';

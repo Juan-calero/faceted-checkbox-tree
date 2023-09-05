@@ -2,9 +2,18 @@ import React from 'react';
 import { Checkbox } from '../design-system';
 import { CategoryDataContext } from '../contexts/category-data-context';
 
-export const CategoryGroup = ({
+export type CategoryGroupType = {
+	show: boolean;
+	checked?: boolean;
+	categoryId: string;
+	depth: number;
+	parent?: boolean;
+	name: string;
+};
+
+export const CategoryGroup: React.FC<CategoryGroupType> = ({
 	show,
-	checked: parentChecked,
+	checked: parentChecked = false,
 	categoryId,
 	depth,
 	parent = false,
@@ -13,14 +22,17 @@ export const CategoryGroup = ({
 	const { categoryData, setYourPicks, yourPicks } =
 		React.useContext(CategoryDataContext);
 
-	const [openGroupIds, setOpenGroupIds] = React.useState(false);
+	const [expandCategoryGroup, setExpandCategoryGroup] = React.useState(false);
 	const [checked, setChecked] = React.useState(false);
 
-	React.useEffect(() => {
+	const toggleChosenCategory = (selected) =>
 		setYourPicks((prevProps) => ({
 			...prevProps,
-			[categoryId]: { name, selected: parentChecked },
+			[categoryId]: { name, selected },
 		}));
+
+	React.useEffect(() => {
+		toggleChosenCategory(parentChecked);
 	}, [parentChecked]);
 
 	React.useEffect(() => {
@@ -33,24 +45,21 @@ export const CategoryGroup = ({
 				variant={parent ? 'parent' : 'child'}
 				{...{ depth, checked }}
 				onChange={() => {
-					setYourPicks((prevProps) => ({
-						...prevProps,
-						[categoryId]: { name, selected: !checked },
-					}));
+					toggleChosenCategory(!checked);
 					setChecked(!checked);
 				}}
-				onClick={() => setOpenGroupIds(!openGroupIds)}
+				onClick={() => setExpandCategoryGroup(!expandCategoryGroup)}
 				hasChild={!!categoryData[categoryId]?.length}
-				expanded={openGroupIds}
+				expanded={expandCategoryGroup}
 			>
 				{name}
 			</Checkbox>
-			{categoryData[categoryId]?.map(({ id, name }) => (
+			{categoryData[categoryId]?.map(({ categoryId, name }) => (
 				<CategoryGroup
 					{...{
-						show: openGroupIds,
+						show: expandCategoryGroup,
 						checked,
-						categoryId: id,
+						categoryId,
 						depth: depth + 1,
 						name,
 					}}

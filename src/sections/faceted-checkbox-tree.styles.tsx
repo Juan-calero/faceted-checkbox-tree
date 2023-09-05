@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { space6XL, spaceXXL } from '../design-system';
 
-const CheckboxTree = styled.div`
+const CheckboxTreeWrapper = styled.section`
 	width: calc(${space6XL} * 3);
 	font-size: ${spaceXXL};
-	overflow: scroll;
+	overflow: auto;
 `;
 
 export const Styled = {
-	CheckboxTree,
+	CheckboxTreeWrapper,
 };

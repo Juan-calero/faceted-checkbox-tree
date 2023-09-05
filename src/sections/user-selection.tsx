@@ -2,9 +2,10 @@ import React from 'react';
 import { Button } from '../design-system/button/button';
 import { CategoryDataContext } from '../contexts/category-data-context';
 import { Styled } from './user-selection.styles';
+import { TextButton } from '../design-system/text-button';
 
-export const UserSelection = () => {
-	const { categoryData, yourPicks, setYourPicks } =
+export const UserSelection: React.FC = () => {
+	const { categoryData, yourPicks, setYourPicks, toggleAllSelections } =
 		React.useContext(CategoryDataContext);
 	const [isAllChecked, setIsAllChecked] = React.useState(false);
 
@@ -12,28 +13,31 @@ export const UserSelection = () => {
 		<Styled.UserSelectionWrapper>
 			<Button
 				onClick={() => {
-					setYourPicks(
-						Object.keys(yourPicks).reduce(
-							(accumulator, key) => ({
-								...accumulator,
-								[key]: { ...yourPicks[key], selected: !isAllChecked },
-							}),
-							{}
-						)
-					);
+					toggleAllSelections(!isAllChecked);
 					setIsAllChecked(!isAllChecked);
 				}}
+				active={isAllChecked}
 			>
 				{isAllChecked ? 'Unselect All' : 'Select All'}
 			</Button>
-			<h3 style={{ margin: '0' }}>Your picks</h3>
-			<div style={{ overflow: 'scroll', height: '100%' }}>
+			<Styled.Heading>Your picks</Styled.Heading>
+			<Styled.Separator />
+			<Styled.ChosenCategories>
 				{Object.entries(yourPicks).map(([key, { name, selected }]) =>
 					selected && !categoryData[key] ? (
-						<p style={{ margin: '0' }}>{name}</p>
+						<TextButton
+							onClick={() =>
+								setYourPicks((prevProps) => ({
+									...prevProps,
+									[key]: { name, selected: false },
+								}))
+							}
+						>
+							{name}
+						</TextButton>
 					) : null
 				)}
-			</div>
+			</Styled.ChosenCategories>
 		</Styled.UserSelectionWrapper>
 	);
 };

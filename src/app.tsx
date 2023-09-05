@@ -7,7 +7,7 @@ import { CategoryDataContextWrapper } from './contexts';
 export const App: React.FC = () => (
 	<CategoryDataContextWrapper>
 		<Styled.Page>
-			<p>Welcome to my project</p>
+			<p>Juan Calero Faceted Checkbox Tree</p>
 			<Styled.Columns>
 				<UserSelection />
 				<FacetedCheckboxTree />

@@ -15,6 +15,7 @@ export type CategoryDataContextType = {
 	setYourPicks: React.Dispatch<
 		React.SetStateAction<CategoryDataContextType['yourPicks']>
 	>;
+	toggleAllSelections: (selected: boolean) => void;
 };
 
 export const CategoryDataContext = React.createContext<CategoryDataContextType>(
@@ -23,5 +24,6 @@ export const CategoryDataContext = React.createContext<CategoryDataContextType>(
 		setCategoryData: () => {},
 		yourPicks: {},
 		setYourPicks: () => {},
+		toggleAllSelections: () => {},
 	}
 );

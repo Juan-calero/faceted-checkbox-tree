@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import {
 	colorDarkBrown,
@@ -8,14 +8,20 @@ import {
 	spaceXS,
 } from '../tokens';
 
-const Button = styled.button`
+const Button = styled.button<{ $active: boolean }>`
 	padding: ${spaceS} ${spaceL};
-	color: ${colorDarkBrown};
-	background: ${colorTextBege};
+	background: ${colorDarkBrown};
+	color: ${colorTextBege};
 	font-size: ${spaceL};
 	cursor: pointer;
 	border-radius: ${spaceXS};
 	border: 1px solid ${colorDarkBrown};
+	${({ $active }) =>
+		$active &&
+		css`
+			background: transparent;
+			color: ${colorDarkBrown};
+		`}
 `;
 
 export const Styled = {

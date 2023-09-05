@@ -7,7 +7,7 @@ import {
 import categoryResponse from '../api/response.json';
 
 export type CategoryDataContextWrapperType = {
-	children?: React.ReactNode;
+	children: React.ReactNode;
 };
 
 export const CategoryDataContextWrapper: React.FC<
@@ -21,20 +21,41 @@ export const CategoryDataContextWrapper: React.FC<
 	>({});
 
 	React.useEffect(() => {
-		let filteredData = {};
-		let filteredData2 = {};
+		let normalizedCategoryData = {};
+		let normalizedChosenCategories = {};
 		categoryResponse.data.categories.forEach(({ parent, id, name }) => {
-			filteredData[parent] = [...(filteredData[parent] || []), { id, name }];
-			filteredData2[id] = { name, selected: false };
+			normalizedCategoryData[parent] = [
+				...(normalizedCategoryData[parent] || []),
+				{ categoryId: id, name },
+			];
+			normalizedChosenCategories[id] = { name, selected: false };
 		});
 
-		setCategoryData(filteredData);
-		setYourPicks(filteredData2);
+		setCategoryData(normalizedCategoryData);
+		setYourPicks(normalizedChosenCategories);
 	}, []);
+
+	const toggleAllSelections = (selected) => {
+		setYourPicks(
+			Object.keys(yourPicks).reduce(
+				(accumulator, key) => ({
+					...accumulator,
+					[key]: { ...yourPicks[key], selected },
+				}),
+				{}
+			)
+		);
+	};
 
 	return (
 		<CategoryDataContext.Provider
-			value={{ categoryData, setCategoryData, yourPicks, setYourPicks }}
+			value={{
+				categoryData,
+				setCategoryData,
+				yourPicks,
+				setYourPicks,
+				toggleAllSelections,
+			}}
 		>
 			{children}
 		</CategoryDataContext.Provider>

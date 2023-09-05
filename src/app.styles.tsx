@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colorLightBege, spaceXXL } from './design-system';
+import { colorLightBege, colorWhite, spaceXXL } from './design-system';
 
 const Page = styled.div`
 	display: flex;
@@ -10,7 +10,7 @@ const Page = styled.div`
 	max-height: calc(100vh - 40px);
 	width: 100vw;
 	font-size: ${spaceXXL};
-	color: white;
+	color: ${colorWhite};
 	overflow: hidden;
 	padding: 20px;
 `;

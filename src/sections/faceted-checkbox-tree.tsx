@@ -3,20 +3,19 @@ import { Styled } from './faceted-checkbox-tree.styles';
 import { CategoryGroup } from './category-group';
 import { CategoryDataContext } from '../contexts/category-data-context';
 
-export const FacetedCheckboxTree = () => {
+export const FacetedCheckboxTree: React.FC = () => {
 	const { categoryData } = React.useContext(CategoryDataContext);
 
 	return (
-		<Styled.CheckboxTree>
-			{categoryData['0']?.map(({ id, name }) => (
+		<Styled.CheckboxTreeWrapper>
+			{categoryData['0']?.map(({ categoryId, name }) => (
 				<CategoryGroup
-					show={true}
-					key={id}
-					checked={false}
-					{...{ categoryId: id, depth: 0, name }}
+					{...{ categoryId, depth: 0, name }}
+					key={categoryId}
 					parent
+					show
 				/>
 			))}
-		</Styled.CheckboxTree>
+		</Styled.CheckboxTreeWrapper>
 	);
 };
