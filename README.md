@@ -30,7 +30,9 @@ A little sneak peak of what you'll find inside "src/":
 
 https://github.com/Juan-calero/faceted-checkbox-tree/assets/81999819/78fc48a9-6cd9-4288-a6b5-6c573ffec74b
 
+## Bonus:
 
+- Added a cross button on each chosen category to easily deselect options.
 
 ##Challenge Requirements:
 
