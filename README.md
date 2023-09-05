@@ -26,9 +26,14 @@ A little sneak peak of what you'll find inside "src/":
 - "/sections" - the big sections of our code, concerning layout and page business logic
 - "/types" - reusable Types that are used throughout the app
 
-## Features:
+## Demo:
+
+https://github.com/Juan-calero/faceted-checkbox-tree/assets/81999819/78fc48a9-6cd9-4288-a6b5-6c573ffec74b
+
+
 
 ##Challenge Requirements:
+
 
 #### Introduction:
 
