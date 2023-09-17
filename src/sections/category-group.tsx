@@ -25,8 +25,8 @@ export const CategoryGroup: React.FC<CategoryGroupType> = ({
 	const [checked, setChecked] = React.useState(false);
 
 	React.useEffect(() => {
-		setChecked(chosenCategories[categoryId].selected);
-	}, [chosenCategories[categoryId].selected]);
+		setChecked(chosenCategories[categoryId]?.selected);
+	}, [chosenCategories[categoryId]?.selected]);
 
 	return (
 		<Styled.CategoryGroupWrapper

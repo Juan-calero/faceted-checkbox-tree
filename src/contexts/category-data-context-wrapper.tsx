@@ -2,7 +2,6 @@ import React from 'react';
 
 import { CategoryDataContext } from './category-data-context';
 import type { CategoryDataContextType } from './category-data-context';
-import categoryResponse from '../api/response.json';
 
 export type CategoryDataContextWrapperType = {
 	children: React.ReactNode;
@@ -19,32 +18,40 @@ export const CategoryDataContextWrapper: React.FC<
 	>({});
 
 	React.useEffect(() => {
-		let normalizedCategoryData: CategoryDataContextType['categoryData'] = {};
-		let normalizedChosenCategories: CategoryDataContextType['chosenCategories'] =
-			{};
+		const fetchData = async () => {
+			const response = await fetch('http://localhost:4008/categories');
+			const categoryData: CategoryDataContextType['categoryData'] =
+				await response.json();
 
-		categoryResponse.data.categories.forEach(({ parent, id, name }) => {
-			normalizedCategoryData[parent] = [
-				...(normalizedCategoryData[parent] || []),
-				{ categoryId: id, name },
-			];
-			normalizedChosenCategories[id] = { name, selected: false };
-		});
+			setCategoryData(categoryData);
 
-		setCategoryData(normalizedCategoryData);
-		setChosenCategories(normalizedChosenCategories);
+			const responseChosen = await fetch(
+				'http://localhost:4008/chosen-categories'
+			);
+			const chosenCategory: CategoryDataContextType['chosenCategories'] =
+				await responseChosen.json();
+
+			setChosenCategories(chosenCategory);
+		};
+		void fetchData();
 	}, []);
 
-	const toggleAllSelections = (selected: boolean) =>
-		setChosenCategories(
-			Object.keys(chosenCategories).reduce(
-				(accumulator, key) => ({
-					...accumulator,
-					[key]: { ...chosenCategories[key], selected },
-				}),
-				{}
-			)
+	const toggleAllSelections = (selected: boolean) => {
+		const toggledCategories = Object.keys(chosenCategories).reduce(
+			(accumulator, key) => ({
+				...accumulator,
+				[key]: { ...chosenCategories[key], selected },
+			}),
+			{}
 		);
+
+		void fetch('http://localhost:4008/chosen-categories', {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(toggledCategories),
+		});
+		setChosenCategories(toggledCategories);
+	};
 
 	const toggleSelection = (key: string, name: string, selected: boolean) => {
 		const toggledCategories: CategoryDataContextType['chosenCategories'] = {};
@@ -61,6 +68,12 @@ export const CategoryDataContextWrapper: React.FC<
 			...prevProps,
 			...toggledCategories,
 		}));
+
+		void fetch('http://localhost:4008/chosen-categories', {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(toggledCategories),
+		});
 	};
 
 	return (
