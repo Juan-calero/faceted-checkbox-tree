@@ -32,8 +32,11 @@ connection.connect(async (error) => {
 			console.log('Table created');
 
 			categoriesJson.data.categories.forEach(({ id, parent, name }) => {
-				connection.query(`INSERT IGNORE INTO checkbox_categories (id, parent, name, selected)
-				VALUES ('${id}', '${parent}', "${name}", FALSE)`);
+				connection.query(
+					`INSERT IGNORE INTO checkbox_categories (id, parent, name, selected)
+				VALUES (?, ?, ?, FALSE)`,
+					[id, parent, name]
+				);
 			});
 		}
 	);

@@ -19,8 +19,9 @@ router.put('/', (req, res) => {
 	Object.entries(req.body).forEach(([id, { selected }]) => {
 		connection.query(
 			`UPDATE checkbox_categories
-			SET selected = ${selected}
-			WHERE id=${id}`,
+			SET selected = ?
+			WHERE id= ?`,
+			[selected, id],
 			(err) => {
 				if (err) throw err;
 			}

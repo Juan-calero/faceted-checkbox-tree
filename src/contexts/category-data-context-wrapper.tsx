@@ -19,14 +19,16 @@ export const CategoryDataContextWrapper: React.FC<
 
 	React.useEffect(() => {
 		const fetchData = async () => {
-			const response = await fetch('http://localhost:4008/categories');
+			const response = await fetch(
+				`${process.env.REACT_APP_SERVER_ENDPOINT}/categories`
+			);
 			const categoryData: CategoryDataContextType['categoryData'] =
 				await response.json();
 
 			setCategoryData(categoryData);
 
 			const responseChosen = await fetch(
-				'http://localhost:4008/chosen-categories'
+				`${process.env.REACT_APP_SERVER_ENDPOINT}/chosen-categories`
 			);
 			const chosenCategory: CategoryDataContextType['chosenCategories'] =
 				await responseChosen.json();
@@ -45,7 +47,7 @@ export const CategoryDataContextWrapper: React.FC<
 			{}
 		);
 
-		void fetch('http://localhost:4008/chosen-categories', {
+		void fetch(`${process.env.REACT_APP_SERVER_ENDPOINT}/chosen-categories`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(toggledCategories),
@@ -69,7 +71,7 @@ export const CategoryDataContextWrapper: React.FC<
 			...toggledCategories,
 		}));
 
-		void fetch('http://localhost:4008/chosen-categories', {
+		void fetch(`${process.env.REACT_APP_SERVER_ENDPOINT}/chosen-categories`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(toggledCategories),
